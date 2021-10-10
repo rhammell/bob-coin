@@ -12,7 +12,8 @@
   "author": "Bob Hammell <rhammell@gmail.com>",
   "license": "ISC",
   "homepage": "https://github.com/rhammell/bob-coin",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "truffle": "^5.4.14"
   }
 }
