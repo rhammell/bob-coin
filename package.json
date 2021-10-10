@@ -12,7 +12,9 @@
   "author": "Bob Hammell <rhammell@gmail.com>",
   "license": "ISC",
   "homepage": "https://github.com/rhammell/bob-coin",
-  "dependencies": {},
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.2"
+  },
   "devDependencies": {
     "truffle": "^5.4.14"
   }
