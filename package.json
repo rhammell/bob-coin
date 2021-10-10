@@ -1,0 +1,15 @@
+{
+  "name": "bob-coin",
+  "version": "1.0.0",
+  "description": "Implementation of an ERC-20 token using OpenZepplin and Truffle",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhammell/bob-coin.git"
+  },
+  "author": "Bob Hammell <rhammell@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/rhammell/bob-coin"
+}
