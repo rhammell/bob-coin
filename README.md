@@ -16,6 +16,9 @@ npm install
 
 Note: The `truffle` and `ganache-cli` libraries are each installed locally for this project, and executed using the `npx` command. This allows for specific versions of these libraries to be tracked/updated/used instead of relying on global installations that may differ between users. 
 
+### Secrets.json
+For migrations/test using testnets or the main-net, private configurations like account mneumonics and API keys are used. These values are expected to be stored in a `secrets.json` file. This file should remain private and untracked with version control. 
+
 ## Token Contract
 The `BobCoin.sol` Solidity contract (inside the `contracts` directory) defines an ERC-20 complient token. The contract inherits from well established token contracts provided by the `@openzeppelin/contracts` library.
 
