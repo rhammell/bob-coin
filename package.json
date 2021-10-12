@@ -16,6 +16,10 @@
     "@openzeppelin/contracts": "^4.3.2"
   },
   "devDependencies": {
-    "truffle": "^5.4.14"
+    "@openzeppelin/test-helpers": "^0.5.15",
+    "@truffle/hdwallet-provider": "^1.5.1",
+    "ganache-cli": "^6.12.2",
+    "truffle": "^5.4.14",
+    "truffle-plugin-verify": "^0.5.15"
   }
 }
