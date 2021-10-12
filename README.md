@@ -1,8 +1,6 @@
 # bob-coin
 Implementation of an ERC-20 token using OpenZeppelin Contracts, built using the Truffle framework. 
 
-The repository includes Truffle project files Solidity contract source code, and migration. Node project files are also included. 
-
 The below documentation is a quick guide on compiling, depolying, and testing the contract using Truffle. The guide borrows from the [OpenZeppelin Docs](https://docs.openzeppelin.com/learn/) which further detail using Truffle.
 
 ## Setup
