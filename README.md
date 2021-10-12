@@ -1,7 +1,7 @@
 # bob-coin
 Implementation of an ERC-20 token using OpenZeppelin Contracts, built using the Truffle framework. 
 
-The below documentation is a quick guide on compiling, depolying, and testing the contract using Truffle. The guide borrows from the [OpenZeppelin Docs](https://docs.openzeppelin.com/learn/) which further detail using Truffle.
+The below documentation is a quick guide on compiling, depolying, and testing the contract using Truffle. The guide borrows from the [OpenZeppelin Docs](https://docs.openzeppelin.com/learn/) which further details using Truffle.
 
 ## Setup
 After cloning the repo, install the required packages.
@@ -17,9 +17,9 @@ npm install
 Note: The `truffle` and `ganache-cli` libraries are each installed locally for this project, and executed using the `npx` command. This allows for specific versions of these libraries to be tracked/updated/used instead of relying on global installations that may differ between users. 
 
 ### Secrets.json
-For migrations/test using testnets or the main-net, private configurations like account mneumonics and API keys are used. These values are expected to be stored in a `secrets.json` file. This file should remain private and untracked with version control. 
+For migrations/tests using test-nets or the main-net, private configurations like account mneumonics and API keys are used. These values are expected to be stored in a `secrets.json` file. This file should remain private and untracked with version control. 
 
-The `truffle-config.js` imports this `secrets.json`, so a copy of it is required in order to perform most Truffle commands. 
+The `truffle-config.js` script imports `secrets.json`, so a copy of it is required in order to perform most Truffle commands. 
 
 Create a copy of this file with placeholder values using the following command: 
 
@@ -61,5 +61,60 @@ compilers: {
     version: "0.8.9"
   }
 }
+```
+
+## Deploy/Interact on Local Blockchain
+For testing purposes the contract can be deployed to an instance of a locally running blockchain. The local blockchain software [Ganache](https://www.trufflesuite.com/ganache) can be used from the command line. 
+
+In a separate terminal window run the following command from the project folder: 
+```bash
+npx ganache-cli
+```
+
+The GUI version of Ganache can also be used, but must be configured to use the correct port number (`8545`) defined in the `development` network settings within `truffle-config.js`: 
+
+```bash
+development: {
+  host: "127.0.0.1",     // Localhost (default: none)
+  port: 8545,            // Standard Ethereum port (default: none)
+  network_id: "*",       // Any network (default: none)
+}
+```
+
+With Ganach running, deploy the contract with the following command: 
+```bash
+npx truffle migrate --network development
+```
+
+This command will run the scripts within the `migrations` folder to deploy the contract to the blockchain. 
+
+Interact with the deployed contract using the Truffle console: 
+
+```bash
+// Initiate console on the development network
+npx truffle console --network development
+
+// Connect to deployed contract
+truffle(development)> const token = await BobCoin.deployed();
+
+// Get token name
+truffle(development)> await token.name();
+
+// Get token symbol
+truffle(development)> await token.symbol();
+
+// Get token total supply
+truffle(development)> (await token.totalSupply()).toString();
+
+// Check token balance of accounts 
+truffle(development)> const accounts = await web3.eth.getAccounts();
+truffle(development)> (await token.balanceOf(accounts[0])).toString()
+truffle(development)> (await token.balanceOf(accounts[1])).toString()
+
+// Transfer token between accounts
+truffle(development)> await token.transfer(accounts[1], 10, {from: accounts[0]})
+
+// Exit the console
+truffle(development)> .exit
 ```
 
