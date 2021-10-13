@@ -167,6 +167,8 @@ Once funded, use the account to deploy the contract to the Ropsten network:
 npx truffle migrate --network ropsten
 ```
 
+For further details on this process see the Truffle guide on [Using Infura](https://www.trufflesuite.com/guides/using-infura-custom-provider). 
+
 The contract can now be ineracted and tested similar to its deployment on the local blockchain, using the `--network ropsten` flag for the `console` and `test` commands detailed above. 
 
 The address of the deployed contract can be viewed on [Ropsten Etherscan](https://ropsten.etherscan.io/). 
