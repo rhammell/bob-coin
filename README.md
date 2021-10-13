@@ -167,7 +167,7 @@ Once funded, use the account to deploy the contract to the Ropsten network:
 npx truffle migrate --network ropsten
 ```
 
-For further details on this process see the Truffle guide on [Using Infura](https://www.trufflesuite.com/guides/using-infura-custom-provider). 
+For further details on this setup, aslo see the Truffle guide on [Using Infura](https://www.trufflesuite.com/guides/using-infura-custom-provider). 
 
 The contract can now be ineracted and tested similar to its deployment on the local blockchain, using the `--network ropsten` flag for the `console` and `test` commands detailed above. 
 
@@ -180,3 +180,17 @@ Use the following command to verify the contract:
 ```bash
 truffle run verify BobCoin --network ropsten
 ```
+
+## Deploy to a Mainnet
+Deployment to the mainnet requires using an account funded with real ether. Replace the `mnemonic` value in `secrets.json` file with the mnemonic for a mainnet account that is properly funded.
+
+Run the following command to deploy the contract to the mainnet: 
+
+```bash
+npx truffle migrate --network mainnet
+```
+
+View the contract on Etherscan, and verify its source code using the `truffle run verify BobCoin --network mainnet` command. 
+
+
+
