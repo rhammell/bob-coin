@@ -118,3 +118,63 @@ truffle(development)> await token.transfer(accounts[1], 10, {from: accounts[0]})
 truffle(development)> .exit
 ```
 
+## Automated Testing
+Run automated unit tests defined by scripts within the `test` directory with the following command: 
+
+```bash
+npx truffle test --network development
+```
+
+Note: The `@openzeppelin/test-helpers` libray can be used to add unit tests specific to event and error handling.
+
+## Deploy to a Public Testnet
+Deploy the contract to the Ropsten test network for further testing.
+
+The `secrets.json` file needs to be configured with appropriate values in order to connect and sign transactions on this network. 
+
+First, configure a connection to the [Infura](https://infura.io/) public node service by creating a new project on their platform and copying its project ID into the `infuraProjectId` value in `secrets.json`.
+
+Next, create a fresh mnemonic (12 seed words) used to derive a new Ethereum account:
+
+```bash
+npx mnemonics
+```
+
+Copy the output from this command into the `mnemonic` value in `secrets.json`.
+
+Both of these values are used to configure the connection to the Ropsten network, as defined in `truffle-config.js`: 
+
+```bash
+ropsten: {
+  provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/${infuraProjectId}`),
+  network_id: 3       // Ropsten's id
+}
+```
+
+Get a list of of accounts created with the mnemonic using the truffle console: 
+
+```bash
+npx truffle console --network ropsten
+truffle(rinkeby)> accounts
+truffle(rinkeby)> .exit
+```
+
+Testnet accounts need to be funded with ETH in order to pay for transactions on the network. Use a public [Ropsten faucet](https://faucet.ropsten.be/) to add ETH into the newly created addresses. The first address listed is the one used to deploy the contract by default. 
+
+Once funded, use the account to deploy the contract to the Ropsten network: 
+
+```bash
+npx truffle migrate --network ropsten
+```
+
+The contract can now be ineracted and tested similar to its deployment on the local blockchain, using the `--network ropsten` flag for the `console` and `test` commands detailed above. 
+
+The address of the deployed contract can be viewed on [Ropsten Etherscan](https://ropsten.etherscan.io/). 
+
+The contract's code can be verified on Etherscan to let users view the source code. To do this copy your Etherscan account's API key into the `etherscanApiKey` value of `secrets.json`. This value accessed and configured within `truffle-config.js`.
+
+Use the following command to verify the contract: 
+
+```bash
+truffle run verify BobCoin --network ropsten
+```
