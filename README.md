@@ -17,9 +17,9 @@ npm install
 Note: The `truffle` and `ganache-cli` libraries are each installed locally for this project, and executed using the `npx` command. This allows for specific versions of these libraries to be tracked/updated/used instead of relying on global installations that may differ between users. 
 
 ### Secrets.json
-For migrations/tests using test-nets or the main-net, private configurations like account mneumonics and API keys are used. These values are expected to be stored in a `secrets.json` file. This file should remain private and untracked with version control. 
+For migrations and tests, using testnets or the main-net, private configurations like account mnemonics and API keys are used. These values are expected to be stored in a `secrets.json` file. This file should remain private and untracked with version control. 
 
-The `truffle-config.js` script imports `secrets.json`, so a copy of it is required in order to perform most Truffle commands. 
+The `truffle-config.js` script relies on importing `secrets.json`, so a copy of it is required in order to perform most Truffle commands. 
 
 Create a copy of this file with placeholder values using the following command: 
 
