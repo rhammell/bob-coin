@@ -1,6 +1,8 @@
 # bob-coin
 Implementation of an ERC-20 token using OpenZeppelin Contracts, built using the Truffle framework. 
 
+The Ethereum mainnet depolyed contract can be viewed on Etherscan [here](https://etherscan.io/address/0x2809cfe18f2ff01f03936bdbc65775ba3bc0d357). 
+
 The below documentation is a quick guide on compiling, depolying, and testing the contract using Truffle. The guide borrows from the [OpenZeppelin Docs](https://docs.openzeppelin.com/learn/) which further details using Truffle.
 
 ## Setup
