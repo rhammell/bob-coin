@@ -18,16 +18,19 @@ npm install
 
 Note: The `truffle` and `ganache-cli` libraries are each installed locally for this project, and executed using the `npx` command. This allows for specific versions of these libraries to be tracked/updated/used instead of relying on global installations that may differ between users. 
 
-### Secrets.json
-For migrations and tests, using testnets or the main-net, private configurations like account mnemonics and API keys are used. These values are expected to be stored in a `secrets.json` file. This file should remain private and untracked with version control. 
+## Configuration Values
+The truffle configuration expects certain configuration values to be stored in a `.env` file inside project folder. These values are required for testnet and mainnet depolyment and testing, and should remain private and untracked with version control.
 
-The `truffle-config.js` script relies on importing `secrets.json`, so a copy of it is required in order to perform most Truffle commands. 
+Configuration values are loaded within the `truffle-config.js` script, which requires the `.env` file to exist. 
 
-Create a copy of this file with placeholder values using the following command: 
+Create a default `.env` file with placeholder values using the following command: 
 
 ```bash
-cp secrets.default.json secrets.json
+cp .env.example .env
 ```
+
+Migration and testing on the local blockchain does not require these configuration values to be defined, and will work with the placeholder values. See the below sections on updating these values when working with public testnets or mainnets. 
+
 
 ## Token Contract
 The `BobCoin.sol` Solidity contract (inside the `contracts` directory) defines an ERC-20 complient token. The contract inherits from well established token contracts provided by the `@openzeppelin/contracts` library.
@@ -35,7 +38,7 @@ The `BobCoin.sol` Solidity contract (inside the `contracts` directory) defines a
 ```bash
 // BobCoin.sol
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.2;
+pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
@@ -129,12 +132,13 @@ npx truffle test --network development
 
 Note: The `@openzeppelin/test-helpers` libray can be used to add unit tests specific to event and error handling.
 
-## Deploy to a Public Testnet
+
+## Migrate and Deploy to a Public Testnet
 Deploy the contract to the Ropsten test network for further testing.
 
-The `secrets.json` file needs to be configured with appropriate values in order to connect and sign transactions on this network. 
+The `.env` file needs to be updated with appropriate values in order to connect and sign transactions on this network. 
 
-First, configure a connection to the [Infura](https://infura.io/) public node service by creating a new project on their platform and copying its project ID into the `infuraProjectId` value in `secrets.json`.
+First, configure a connection to the [Infura](https://infura.io/) public node service by creating a new project on their platform and copying its project ID into the `INFURA_PROJECT_ID` value in `.env`.
 
 Next, create a fresh mnemonic (12 seed words) used to derive a new Ethereum account:
 
@@ -142,13 +146,13 @@ Next, create a fresh mnemonic (12 seed words) used to derive a new Ethereum acco
 npx mnemonics
 ```
 
-Copy the output from this command into the `mnemonic` value in `secrets.json`.
+Copy the output from this command into the `MNEMONIC` value in `.env`.
 
 Both of these values are used to configure the connection to the Ropsten network, as defined in `truffle-config.js`: 
 
 ```bash
 ropsten: {
-  provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/${infuraProjectId}`),
+  provider: () => new HDWalletProvider(MNEMONIC, `https://ropsten.infura.io/v3/${INFURA_PROJECT_ID}`),
   network_id: 3       // Ropsten's id
 }
 ```
@@ -175,12 +179,12 @@ The contract can now be ineracted and tested similar to its deployment on the lo
 
 The address of the deployed contract can be viewed on [Ropsten Etherscan](https://ropsten.etherscan.io/). 
 
-The contract's code can be verified on Etherscan to let users view the source code. To do this copy your Etherscan account's API key into the `etherscanApiKey` value of `secrets.json`. This value accessed and configured within `truffle-config.js`.
+The contract's code can be verified on Etherscan to let users view the source code. To do this copy your Etherscan account's API key into the `ETHERSCAN_API_KEY` value of `.env`. This value is accessed and configured within `truffle-config.js`.
 
 Use the following command to verify the contract: 
 
 ```bash
-truffle run verify BobCoin --network ropsten
+npx truffle run verify BobCoin --network ropsten
 ```
 
 ## Deploy to a Mainnet
