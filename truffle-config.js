@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const {MNEMONIC, INFURA_PROJECT_ID, ETHERSCAN_API_KEY} = process.env;
+const {MNEMONIC, INFURA_PROJECT_ID, ETHERSCAN_API_KEY, SNOWTRACE_API_KEY} = process.env;
 
 module.exports = {
   networks: {
@@ -25,6 +25,10 @@ module.exports = {
       network_id: 1,
       gas: 5500000
     },
+    fuji: {
+      provider: () => new HDWalletProvider(MNEMONIC, `https://api.avax-test.network/ext/bc/C/rpc`),
+      network_id: 1,
+    }
   },
 
   // Configure your compilers
@@ -47,6 +51,7 @@ module.exports = {
     'truffle-plugin-verify'
   ],
   api_keys: {
-    etherscan: ETHERSCAN_API_KEY
+    etherscan: ETHERSCAN_API_KEY,
+    snowtrace: SNOWTRACE_API_KEY
   }
 };
